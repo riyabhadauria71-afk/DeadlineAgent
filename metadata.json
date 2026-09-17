@@ -1,0 +1,6 @@
+{
+  "name": "Deadline Agent",
+  "description": "AI inbox scanner that detects email deadlines and schedules them to a calendar with deduplication, loop prevention, and failure guardrails.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
