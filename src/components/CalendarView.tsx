@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { CalendarEvent } from '../types';
-import { ChevronLeft, ChevronRight, Bot, Calendar as CalendarIcon, Clock, Mail, Info, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Bot, Calendar as CalendarIcon, Clock, Mail, Info, X, CheckCircle2, Circle } from 'lucide-react';
 
 interface CalendarViewProps {
   events: CalendarEvent[];
+  onToggleEventComplete?: (id: string) => void;
 }
 
-export const CalendarView: React.FC<CalendarViewProps> = ({ events }) => {
+export const CalendarView: React.FC<CalendarViewProps> = ({ events, onToggleEventComplete }) => {
   // Default to October 2026 as the primary demo deadline month
   const [currentYear, setCurrentYear] = useState<number>(2026);
   const [currentMonth, setCurrentMonth] = useState<number>(9); // 0-indexed: 9 = October
@@ -165,12 +166,22 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ events }) => {
                         key={evt.id}
                         type="button"
                         onClick={() => setSelectedEvent(evt)}
-                        title={`Agent-created: ${evt.title} (${evt.time || 'All Day'})`}
-                        className="w-full text-left px-1.5 py-1 rounded bg-indigo-50 hover:bg-indigo-100 border border-indigo-200/90 text-indigo-900 text-[10px] transition group flex items-start gap-1"
+                        title={`Agent-created: ${evt.title} (${evt.time || 'All Day'})${evt.isCompleted ? ' - Completed' : ''}`}
+                        className={`w-full text-left px-1.5 py-1 rounded text-[10px] transition group flex items-start gap-1 ${
+                          evt.isCompleted
+                            ? 'bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-900'
+                            : 'bg-indigo-50 hover:bg-indigo-100 border border-indigo-200/90 text-indigo-900'
+                        }`}
                       >
-                        <Bot className="h-3 w-3 text-indigo-600 shrink-0 mt-0.5" />
+                        {evt.isCompleted ? (
+                          <CheckCircle2 className="h-3 w-3 text-emerald-600 shrink-0 mt-0.5" />
+                        ) : (
+                          <Bot className="h-3 w-3 text-indigo-600 shrink-0 mt-0.5" />
+                        )}
                         <div className="truncate flex-1">
-                          <span className="font-semibold block truncate leading-tight">{evt.title}</span>
+                          <span className={`font-semibold block truncate leading-tight ${evt.isCompleted ? 'line-through text-emerald-800' : ''}`}>
+                            {evt.title}
+                          </span>
                           {evt.time && <span className="text-[9px] text-indigo-700 block">{evt.time}</span>}
                         </div>
                       </button>
@@ -278,11 +289,28 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ events }) => {
               )}
             </div>
 
-            <div className="pt-2 flex justify-end">
+            <div className="pt-2 flex items-center justify-between border-t border-slate-100">
+              {onToggleEventComplete && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onToggleEventComplete(selectedEvent.id);
+                    setSelectedEvent((prev) => prev ? { ...prev, isCompleted: !prev.isCompleted } : null);
+                  }}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
+                    selectedEvent.isCompleted
+                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                  }`}
+                >
+                  <CheckCircle2 className="h-3.5 w-3.5" />
+                  <span>{selectedEvent.isCompleted ? 'Mark Incomplete' : 'Mark as Done'}</span>
+                </button>
+              )}
               <button
                 type="button"
                 onClick={() => setSelectedEvent(null)}
-                className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition"
+                className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition ml-auto"
               >
                 Close
               </button>

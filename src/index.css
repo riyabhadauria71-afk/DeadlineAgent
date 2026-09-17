@@ -5,6 +5,90 @@
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
+/* Dark mode surface variables and overrides */
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  background-color: #0b0f19;
+  color: #f1f5f9;
+}
+
+/* Dark mode component styling overrides */
+.dark header {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+}
+
+.dark #app-footer {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+}
+
+.dark .bg-white {
+  background-color: #131d31 !important;
+  border-color: #1e293b !important;
+}
+
+.dark .bg-slate-50 {
+  background-color: #0b0f19 !important;
+}
+
+.dark .bg-slate-50\/70,
+.dark .bg-slate-50\/50 {
+  background-color: #131d31 !important;
+}
+
+.dark .text-slate-900 {
+  color: #f8fafc !important;
+}
+
+.dark .text-slate-800 {
+  color: #f1f5f9 !important;
+}
+
+.dark .text-slate-700 {
+  color: #cbd5e1 !important;
+}
+
+.dark .text-slate-600 {
+  color: #94a3b8 !important;
+}
+
+.dark .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+.dark .border-slate-200,
+.dark .border-slate-100,
+.dark .border-slate-200\/80,
+.dark .border-slate-200\/90 {
+  border-color: #1e293b !important;
+}
+
+.dark .bg-slate-100 {
+  background-color: #1e293b !important;
+  color: #e2e8f0 !important;
+}
+
+.dark .hover\:bg-slate-100:hover,
+.dark .hover\:bg-slate-50:hover {
+  background-color: #1e293b !important;
+}
+
+.dark .hover\:bg-slate-200:hover {
+  background-color: #334155 !important;
+}
+
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: #0b0f19 !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
 /* Custom scrollbar for activity log terminal */
 .terminal-scroll::-webkit-scrollbar {
   width: 6px;

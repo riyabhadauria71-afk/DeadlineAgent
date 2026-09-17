@@ -40,6 +40,28 @@ export interface CalendarEvent {
   isAgentCreated: boolean;
   category?: 'academic' | 'finance' | 'career' | 'personal' | 'general';
   createdAt?: string;
+  isCompleted?: boolean;
+}
+
+export interface Assignment {
+  id: string;
+  title: string;
+  courseOrOrg: string;
+  dueDate: string; // YYYY-MM-DD
+  dueTime?: string | null;
+  status: 'pending' | 'in_progress' | 'completed';
+  completedAt?: string | null;
+  sourceEmailId?: string | null;
+  notes?: string;
+  priority?: 'low' | 'medium' | 'high';
+}
+
+export interface UserProfile {
+  id: string;
+  email: string;
+  name: string;
+  role?: string;
+  avatarUrl?: string;
 }
 
 export type LogStepType =
